@@ -37,7 +37,13 @@ namespace SCMovies
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to C#");
+            // Get a new context which will connect to the database
+            var context = new SuncoastMoviesContext();
+
+            // Get a reference to our collection of movies.
+            // NOTE: this doesn't yet access any of them, just gives
+            // us a variable that knows how.
+            var movies = context.Movies;
         }
     }
 }
