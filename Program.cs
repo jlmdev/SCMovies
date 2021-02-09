@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace SCMovies
 {
@@ -11,6 +12,15 @@ namespace SCMovies
         public string PrimaryDirector { get; set; }
         public int YearReleased { get; set; }
         public string Genre { get; set; }
+
+        public int RatingId { get; set; }
+        public Rating Rating { get; set; }
+    }
+
+    class Rating
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
     }
 
     // Define a database context for our SuncoastMovies database/
@@ -21,6 +31,9 @@ namespace SCMovies
         // Define a Movies property that is a DbSet
         public DbSet<Movie> Movies { get; set; }
 
+        // Define Ratings Property that is a DbSet
+        public DbSet<Rating> Ratings { get; set; }
+
         // Define a method required by EF that will configure our connection 
         // to the database.
         // 
@@ -29,6 +42,9 @@ namespace SCMovies
         // our local machine.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            optionsBuilder.UseLoggerFactory(loggerFactory);
+
             optionsBuilder.UseNpgsql("server=localhost;database=SuncoastMovies");
         }
 
@@ -49,6 +65,12 @@ namespace SCMovies
             // Test database connection by counting the number of movies
             var movieCount = movies.Count();
             Console.WriteLine($"There are {movieCount} movies!");
+
+            // Getting a list of all the movies
+            foreach (var movie in movies)
+            {
+                Console.WriteLine($"{movie.Title}");
+            }
         }
     }
 }
