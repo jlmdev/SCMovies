@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace SCMovies
@@ -44,6 +45,10 @@ namespace SCMovies
             // NOTE: this doesn't yet access any of them, just gives
             // us a variable that knows how.
             var movies = context.Movies;
+
+            // Test database connection by counting the number of movies
+            var movieCount = movies.Count();
+            Console.WriteLine($"There are {movieCount} movies!");
         }
     }
 }
