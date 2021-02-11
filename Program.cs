@@ -69,7 +69,14 @@ namespace SCMovies
             // Getting a list of all the movies
             foreach (var movie in movies)
             {
-                Console.WriteLine($"{movie.Title}");
+                if (movie.Rating == null)
+                {
+                    Console.WriteLine($"{movie.Title} has not been rated yet");
+                }
+                else
+                {
+                    Console.WriteLine($"{movie.Title} is rated {movie.Rating.Description}");
+                }
             }
         }
     }
