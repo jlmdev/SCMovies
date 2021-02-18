@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -13,14 +14,40 @@ namespace SCMovies
         public int YearReleased { get; set; }
         public string Genre { get; set; }
 
+        // This is the column in the database
         public int RatingId { get; set; }
+
+        // This is the related object we can use from our code if properly used with Include
         public Rating Rating { get; set; }
+
+        // This is the related list of roles we can use if properly used with Include
+        public List<Role> Roles { get; set; }
     }
 
     class Rating
     {
         public int Id { get; set; }
         public string Description { get; set; }
+    }
+
+    class Role
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+
+        // This is the column in the database
+        public int MovieId { get; set; }
+
+        // This is the related object we can use from our code if properly used with Include
+        public Movie Movie { get; set; }
+
+        // This is the column in the database
+        public int ActorId { get; set; }
+
+        // This is the related object we can use from our code if properly used with Include
+        public Actor Actor { get; set; }
+
+
     }
 
     // Define a database context for our SuncoastMovies database/
